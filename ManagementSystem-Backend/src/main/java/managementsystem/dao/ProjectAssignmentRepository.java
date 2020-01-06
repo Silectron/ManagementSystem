@@ -35,12 +35,12 @@ public class ProjectAssignmentRepository {
 	}
 
 	@Transactional
-	public Project createProject(String name, Date date, Time startTime, Time endTime) {
+	public Project createProject(String name, String status, Date startDate, Date endDate) {
 		Project e = new Project();
 		e.setName(name);
-		e.setDate(date);
-		e.setStartTime(startTime);
-		e.setEndTime(endTime);
+		e.setStatus(status);
+		e.setStartDate(startDate);
+		e.setEndDate(endDate);
 		entityManager.persist(e);
 		return e;
 	}

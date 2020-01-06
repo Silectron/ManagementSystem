@@ -30,34 +30,34 @@ public class Project {
 		return this.name;
 	}
 
-	private Date date;
+	private String status;
 
-	public void setDate(Date value) {
-		this.date = value;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public Date getDate() {
-		return this.date;
+	public String getStatus() {
+		return this.status;
 	}
 
-	private Time startTime;
+	private Date startDate;
 
-	public void setStartTime(Time value) {
-		this.startTime = value;
+	public void setStartDate(Date date) {
+		this.startDate = date;
 	}
 
-	public Time getStartTime() {
-		return this.startTime;
+	public Date getStartDate() {
+		return this.startDate;
 	}
 
-	private Time endTime;
+	private Date endDate;
 
-	public void setEndTime(Time value) {
-		this.endTime = value;
+	public void setEndDate(Date date) {
+		this.endDate = date;
 	}
 
-	public Time getEndTime() {
-		return this.endTime;
+	public Date getEndDate() {
+		return this.endDate;
 	}
 
 	private List<Lead> leads;

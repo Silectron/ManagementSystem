@@ -18,11 +18,11 @@ public class LeadDto extends EmployeeDto {
 		this.projects = projects;
 	}
 
-	public void setPromotes(List<ProjectDto> projects) {
+	public void setLeads(List<ProjectDto> projects) {
 		this.projects = projects;
 	}
 
-	public List<ProjectDto> getPromotes() {
+	public List<ProjectDto> getProjectsLeaded() {
 		return projects;
 	}
 
