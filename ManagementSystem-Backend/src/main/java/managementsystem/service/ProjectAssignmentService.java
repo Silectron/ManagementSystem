@@ -1,11 +1,8 @@
 package managementsystem.service;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,7 +58,7 @@ public class ProjectAssignmentService {
 	}
 	
 	@Transactional
-	public Project buildProject(Project project, String name, String status, Date startDate, Date endDate) {
+	public Project buildProject(Project project, String name, String status, Date startDate, Date endDate, String client) {
 		// Input validation
 		String error = "";
 		if (name == null || name.trim().length() == 0) {
@@ -81,6 +78,9 @@ public class ProjectAssignmentService {
 		if (endDate != null && startDate != null && endDate.before(startDate)) {
 			error = error + "Project end time cannot be before project start time!";
 		}
+		if (client == null || client.trim().length() == 0) {
+			error = error + "Project client cannot be empty! ";
+		}
 		error = error.trim();
 		if (error.length() > 0) {
 			throw new IllegalArgumentException(error);
@@ -89,13 +89,14 @@ public class ProjectAssignmentService {
 		project.setStatus(status);
 		project.setStartDate(startDate);
 		project.setEndDate(endDate);
+		project.setClient(client);
 		return project;
 	}
 
 	@Transactional
-	public Project createProject(String name, String status, Date startDate, Date endDate) {
+	public Project createProject(String name, String status, Date startDate, Date endDate, String client) {
 		Project project = new Project();
-		buildProject(project, name, status, startDate, endDate);
+		buildProject(project, name, status, startDate, endDate, client);
 		projectRepository.save(project);
 		return project;
 	}
@@ -180,8 +181,8 @@ public class ProjectAssignmentService {
 			throw new IllegalArgumentException("Employee cannot be null!");
 		}
 		List<Project> projectsAssignedToEmployee = new ArrayList<>();
-		for (Assignment r : assignmentRepository.findByEmployee(employee)) {
-			projectsAssignedToEmployee.add(r.getProject());
+		for (Assignment a : assignmentRepository.findByEmployee(employee)) {
+			projectsAssignedToEmployee.add(a.getProject());
 		}
 		return projectsAssignedToEmployee;
 	}
@@ -194,11 +195,11 @@ public class ProjectAssignmentService {
 			throw new IllegalArgumentException("Lead has already been created!");
 		}
 		
-		Lead p = new Lead();
-		p.setName(name);
-		leadRepository.save(p);
+		Lead l = new Lead();
+		l.setName(name);
+		leadRepository.save(l);
 		
-		return p;
+		return l;
 	}
 	
 	@Transactional
@@ -218,19 +219,19 @@ public class ProjectAssignmentService {
 	}
 	
 	@Transactional
-	public void leadsProject(Lead p, Project e) {
+	public void leadsProject(Lead l, Project p) {
 		boolean leadExists = false;
 		boolean projectExists = false;
-		if(e == null) {
+		if(p == null) {
 			throw new IllegalArgumentException("Project must be specified.");
 		}
 		for(Lead lea : leadRepository.findAll()) {
-			if(lea.getName().equals(p.getName())) {
+			if(lea.getName().equals(l.getName())) {
 				leadExists = true;
 			}
 		}
 		for(Project pro : projectRepository.findAll()) {
-			if(pro.getName().equals(e.getName())) {
+			if(pro.getName().equals(l.getName())) {
 				projectExists = true;
 			}
 		}
@@ -243,13 +244,13 @@ public class ProjectAssignmentService {
 		}
 		
 		List<Project> projectsLeaded = new ArrayList<>();
-		if(p.getProjects() != null) {
-			projectsLeaded = p.getProjects();
+		if(l.getProjects() != null) {
+			projectsLeaded = l.getProjects();
 		}
-		projectsLeaded.add(e);
+		projectsLeaded.add(p);
 		
-		p.setProjects(projectsLeaded);	
-		leadRepository.save(p);
+		l.setProjects(projectsLeaded);	
+		leadRepository.save(l);
 	}
 	
 	@Transactional

@@ -11,7 +11,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
 @Entity

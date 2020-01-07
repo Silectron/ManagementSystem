@@ -1,7 +1,6 @@
 package managementsystem.dto;
 
 import java.sql.Date;
-import java.sql.Time;
 
 public class ProjectDto {
 
@@ -9,19 +8,21 @@ public class ProjectDto {
 	private String status;
 	private Date startDate;
 	private Date endDate;
+	private String client;
 
 	public ProjectDto() {
 	}
 
-	public ProjectDto(String name) {
-		this(name, "Acknowledged", Date.valueOf("1971-01-01"), Date.valueOf("1971-01-01"));
+	public ProjectDto(String name, String client) {
+		this(name, "Acknowledged", Date.valueOf("1971-01-01"), Date.valueOf("1971-01-01"), client);
 	}
 
-	public ProjectDto(String name, String status, Date startDate, Date endDate) {
+	public ProjectDto(String name, String status, Date startDate, Date endDate, String client) {
 		this.name = name;
 		this.status = status;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.client = client;
 	}
 
 	public String getName() {
@@ -38,5 +39,13 @@ public class ProjectDto {
 
 	public Date getEndDate() {
 		return endDate;
+	}
+	
+	public void setClient(String client) {
+		this.client = client;
+	}
+	
+	public String getClient() {
+		return this.client;
 	}
 }
