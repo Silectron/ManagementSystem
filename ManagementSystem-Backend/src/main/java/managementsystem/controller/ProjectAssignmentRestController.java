@@ -52,8 +52,8 @@ public class ProjectAssignmentRestController {
 	// http://localhost:8080/projects/testproject?status=ongoing&startDate=2020-01-01&endDate=2020-04-01&client=Company
 	// Project Dto
 	@PostMapping(value = { "/projects/{name}", "/projects/{name}/" })
-	public ProjectDto createProject(@PathVariable("name") String name, @RequestParam String status, Date startDate,
-			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") Date endDate,
+	public ProjectDto createProject(@PathVariable("name") String name, @RequestParam String status, @RequestParam Date startDate,
+			@RequestParam Date endDate,
 			@RequestParam String client) throws IllegalArgumentException {
 		
 		Project project = service.createProject(name, status, startDate, endDate, client);

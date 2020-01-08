@@ -1,7 +1,6 @@
 package managementsystem.dao;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -22,38 +21,39 @@ public class ProjectAssignmentRepository {
 
 	@Transactional
 	public Employee createEmployee(String name) {
-		Employee p = new Employee();
-		p.setName(name);
-		entityManager.persist(p);
-		return p;
-	}
-
-	@Transactional
-	public Employee getEmployee(String name) {
-		Employee p = entityManager.find(Employee.class, name);
-		return p;
-	}
-
-	@Transactional
-	public Project createProject(String name, String status, Date startDate, Date endDate) {
-		Project e = new Project();
+		Employee e = new Employee();
 		e.setName(name);
-		e.setStatus(status);
-		e.setStartDate(startDate);
-		e.setEndDate(endDate);
 		entityManager.persist(e);
 		return e;
 	}
 
 	@Transactional
-	public Project getProject(String name) {
-		Project e = entityManager.find(Project.class, name);
+	public Employee getEmployee(String name) {
+		Employee e = entityManager.find(Employee.class, name);
 		return e;
 	}
 
 	@Transactional
+	public Project createProject(String name, String status, Date startDate, Date endDate, String client) {
+		Project p = new Project();
+		p.setName(name);
+		p.setStatus(status);
+		p.setStartDate(startDate);
+		p.setEndDate(endDate);
+		p.setClient(client);
+		entityManager.persist(p);
+		return p;
+	}
+
+	@Transactional
+	public Project getProject(String name) {
+		Project p = entityManager.find(Project.class, name);
+		return p;
+	}
+
+	@Transactional
 	public List<Project> getProjectsBeforeADeadline(Date deadline) {
-		TypedQuery<Project> q = entityManager.createQuery("select e from Project e where e.date < :deadline", Project.class);
+		TypedQuery<Project> q = entityManager.createQuery("select p from Project p where p.date < :deadline", Project.class);
 		q.setParameter("deadline", deadline);
 		List<Project> resultList = q.getResultList();
 		return resultList;
