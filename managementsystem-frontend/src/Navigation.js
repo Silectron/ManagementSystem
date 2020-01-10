@@ -7,11 +7,11 @@ class Navigation extends Component {
     render() {
         return (
             <div>
-              <Navbar color="light" light expand="md">
+              <Navbar color="primary" dark expand="md">
                 <NavbarBrand href="/">Project Management Application</NavbarBrand>
                   <Nav className="ml-auto" navbar>
                     <NavItem>
-                      <NavLink href="/home/">Home</NavLink>
+                      <NavLink href="/">Home</NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink href="/projects">Projects</NavLink>
