@@ -18,18 +18,30 @@ class Employees extends Component {
 
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleNameChange = this.handleNameChange.bind(this)
+        this.handleLeadSubmit = this.handleLeadSubmit.bind(this)
     }
 
     async componentDidMount() {
         const response = await fetch('/employees');
-        const body= await response.json();
+        const body = await response.json();
         this.setState({Employees : body, isLoading : false});
     }
 
-    async handleSubmit() {
+    handleSubmit() {
         const params = new URLSearchParams();
         params.append("name", this.state.name)
         Axios.post(`/employees/` +this.state.name, params)
+            .then(() => {
+                this.componentDidMount();
+            }).catch(function (e) {
+                console.log(e)
+            })
+    }
+
+    handleLeadSubmit() {
+        const params = new URLSearchParams();
+        params.append("name", this.state.name)
+        Axios.post(`/leads/` +this.state.name, params)
             .then(() => {
                 this.componentDidMount();
             }).catch(function (e) {
@@ -61,7 +73,7 @@ class Employees extends Component {
 
         return (
             <div>
-                <Navigation/>\
+                <Navigation/>
 
                 <Container>
                         <h2 style={{display:'flex', justifyContent:'center', alignItems:'center', height: '10vh'}}>Employees</h2> 
@@ -88,6 +100,8 @@ class Employees extends Component {
 
                         <FormGroup>
                             <Button color="primary" type="submit">Add Employee</Button>
+                            <Row></Row>
+                            <Button color="danger" size="sm" onClick={this.handleLeadSubmit}>Add Employee as Lead</Button>
                             <Row></Row>
                             <Button color="secondary" size="sm" tag={Link} to="/">Cancel</Button>
                         </FormGroup>
