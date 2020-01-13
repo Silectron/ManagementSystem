@@ -15,3 +15,8 @@ The application should run on port 8080
 
 If errors arrise,
 It might be necessary to add the same variable and value to each of the test classes following the same steps as above 
+
+
+To be completed:
+  Backend: Tests ---
+  Frontend: Integration of project assignment and lead in home page
