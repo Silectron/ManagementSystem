@@ -150,6 +150,15 @@ public class ProjectAssignmentRestController {
 		}
 		return employees;
 	}
+	
+	@GetMapping(value = { "/leads", "leads/" })
+	public List<LeadDto> getAllLeads() {
+		List<LeadDto> leads = new ArrayList<>();
+		for(Lead lead : service.getAllLeads()) {
+			leads.add(convertToDto(lead));
+		}
+		return leads;
+	}
 
 	@GetMapping(value = { "/projects/{name}", "/projects/{name}/" })
 	public ProjectDto getProjectByName(@PathVariable("name") String name) throws IllegalArgumentException {
