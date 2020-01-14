@@ -17,6 +17,14 @@ If errors arrise,
 It might be necessary to add the same variable and value to each of the test classes following the same steps as above 
 
 
+Frontend setup:
+  Possible issue with react-datepicker due to react-popper and reactstrap
+  Fix:
+    After npm install,
+    in ./node_modules/reactstrap/dist/reactstrap.es.js
+    1. remove "Arrow" and "Target" from react-popper import
+    
+    
 To be completed:
   Backend: Tests ---
   Frontend: Integration of project assignment and lead in home page
