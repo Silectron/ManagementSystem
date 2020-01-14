@@ -19,6 +19,9 @@ class Home extends Component {
 
         this.handleAssignSubmit = this.handleAssignSubmit.bind(this)
         this.handleLeadSubmit = this.handleLeadSubmit.bind(this)
+        this.handleProjectClick = this.handleProjectClick.bind(this)
+        this.handleEmployeeClick = this.handleEmployeeClick.bind(this)
+        this.handleLeadClick = this.handleLeadClick.bind(this)
     }
 
     async componentDidMount() {
@@ -60,6 +63,18 @@ class Home extends Component {
             })
     }
 
+    handleProjectClick(project) {
+        this.setState({selectedProject : project})
+    }
+
+    handleEmployeeClick(employee) {
+        this.setState({selectedEmployee : employee})
+    }
+
+    handleLeadClick(lead) {
+        this.setState({selectedlead : lead})
+    }
+
     render() {
         const{Projects, Employees, Leads, isLoading} = this.state;
         const title = <h3 style={{display:'flex', justifyContent:'center', alignItems:'center', height: '10vh'}}>Assign Roles</h3>
@@ -72,7 +87,7 @@ class Home extends Component {
         }
         let projectRows = Projects.map( (project, index) => {
             if(project.status.localeCompare("Completed") !== 0) {
-                return( <tr key={index}>
+                return( <tr key={index} onClick={this.handleProjectClick}>
                             <td>{project.name}</td>
                             <td>{project.client}</td>
                             <td>{project.startDate}</td>
@@ -86,13 +101,13 @@ class Home extends Component {
         })
 
         let employeeRows = Employees.map( (employee, index) => 
-            <tr key={index}>
+            <tr key={index} onClick={this.handleEmployeeClick}>
                 <td>{employee.name}</td>
             </tr>
         )
 
         let leadRows = Leads.map( (lead, index) => 
-            <tr key={index}>
+            <tr key={index} onClick={this.handleLeadClick}>
                 <td>{lead.name}</td>
             </tr>
         )
@@ -157,7 +172,13 @@ class Home extends Component {
                         <Button color="primary" onClick={this.handleAssignSubmit}>Assign to Project</Button>
                     </div> 
 
-                    <div style={{height: '100%', width: '30%'}}/>
+                    <div style={{height: '100%', width: '30%'}}>
+                        <tr>
+                            <td>{this.selectedEmployee}</td>
+                            <td>{this.selectedProject}</td>
+                            <td>{this.selectedLead}</td>
+                        </tr>
+                    </div>
 
                     <div style={{width: '35%', height: '100%'}}>
                         <Button color="primary" onClick={this.handleLeadSubmit}>Assign as Lead</Button>      

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Navigation from './Navigation';
-import './App.css';
 import {Container, Button, Form, FormGroup, Input, Label, Row, Table} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import Axios from "axios";

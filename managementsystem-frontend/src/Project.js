@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Navigation from './Navigation';
 import DatePicker from 'react-datepicker';
-import './App.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import {Container, Button, Form, FormGroup, Label, Input, Row, Col, Table} from 'reactstrap';
 import {Link} from 'react-router-dom';
@@ -86,7 +85,7 @@ class Project extends Component {
     }
 
     render() {
-        const{Projects, isLoading} = this.state;
+        const{isLoading, Projects} = this.state;
         const title = <h4>Create New Project</h4>;
         if(isLoading) {
             return( <div>
@@ -132,13 +131,13 @@ class Project extends Component {
                         {title}
                         <Form onSubmit={this.handleSubmit}>
                             <Row form>
-                                <Col md={8}>
+                                <Col md={6}>
                                     <FormGroup>
                                         <Label for="name">Project Name</Label>
                                         <Input type="text" value={this.state.name} onChange={this.handleNameChange}></Input>
                                     </FormGroup>
                                 </Col>
-                                <Col md={3}>
+                                <Col md={4}>
                                     <FormGroup>
                                         <Label for="status">Status</Label>
                                         <Input type="text" value={this.state.status} onChange={this.handleStatusChange}></Input>
@@ -160,12 +159,14 @@ class Project extends Component {
                                 </Col>
                             </Row>
 
-                            <div className="row">
-                                <FormGroup className="col-md-6 mb-3">
+                            <Row form>
+                                <Col md={5}>
+                                <FormGroup>
                                     <Label for="client">Client</Label>
                                     <Input type="text" value={this.state.client} onChange={this.handleClientChange}></Input>
                                 </FormGroup>
-                            </div>
+                                </Col>
+                            </Row>
 
                             <FormGroup>  
                                 <Button color="primary" type="submit">Add Project</Button>
